@@ -1,1 +1,1 @@
-export * as quest from "quest";
+export * as quest from "Quest";
