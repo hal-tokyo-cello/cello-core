@@ -21,4 +21,13 @@ export abstract class Quest {
 }
 
 export abstract class Answer {}
-export abstract class Item {}
+
+export abstract class Item {
+  public effect: Effect | null;
+
+  constructor(public name: string, public description: string, effect: Effect | null = null) {
+    this.effect = effect;
+  }
+}
+
+export abstract class Effect {}
