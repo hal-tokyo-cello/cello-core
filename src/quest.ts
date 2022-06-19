@@ -20,7 +20,9 @@ export abstract class Quest {
   }
 }
 
-export abstract class Answer {}
+export abstract class Answer {
+  constructor(public value: string, public display: string) {}
+}
 
 export abstract class Item {
   public effect: Effect | null;
