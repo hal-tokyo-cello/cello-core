@@ -6,7 +6,19 @@ export interface IQuestRepository {
   getItem: (id: Identifier) => Item;
 }
 
-export abstract class Quest {}
+export abstract class Quest {
+  private solution: Answer;
+
+  constructor(
+    public title: string,
+    public drops: Item[],
+    public experience: number,
+    public answers: Answer[],
+    solution: number
+  ) {
+    this.solution = answers[solution];
+  }
+}
 
 export abstract class Answer {}
 export abstract class Item {}
