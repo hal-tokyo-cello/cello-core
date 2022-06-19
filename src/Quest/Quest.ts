@@ -12,4 +12,8 @@ export abstract class Quest {
   ) {
     this.solution = answers[solution];
   }
+
+  public answer(answer: Answer): boolean {
+    return answer.value === this.solution.value;
+  }
 }
