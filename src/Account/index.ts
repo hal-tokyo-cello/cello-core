@@ -9,4 +9,8 @@ export interface IAccountRepository {
   getUser(id: Identifier): User;
   getPlayer(id: Identifier): Player;
   getAvatar(id: Identifier): Avatar;
+
+  setLastLoginAttempt(timestamp: number): void;
+  setLastLogin(timestamp: number): void;
+  registerNewUser(user: User): void;
 }
