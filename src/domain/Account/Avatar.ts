@@ -1,4 +1,4 @@
-import { IAccountRepository, Player } from "Account";
+import { IAccountRepository, Player } from "domain/Account";
 
 export enum Race {
   Egg,

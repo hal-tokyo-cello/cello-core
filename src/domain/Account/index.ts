@@ -1,7 +1,7 @@
 export * from "./Avatar";
 export * from "./User";
 
-import { Identifier } from "index";
+import { Identifier } from "domain/index";
 import { Avatar } from "./Avatar";
 import { Player, User } from "./User";
 

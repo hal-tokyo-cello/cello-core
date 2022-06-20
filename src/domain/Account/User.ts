@@ -1,4 +1,4 @@
-import { Avatar, IAccountRepository } from "Account";
+import { Avatar, IAccountRepository } from "domain/Account";
 
 export abstract class User {
   constructor(

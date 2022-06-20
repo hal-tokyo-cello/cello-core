@@ -3,7 +3,7 @@ export * from "./Effect";
 export * from "./Item";
 export * from "./Quest";
 
-import { Identifier } from "index";
+import { Identifier } from "domain/index";
 import { Answer } from "./Answer";
 import { Item } from "./Item";
 import { Quest } from "./Quest";

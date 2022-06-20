@@ -1,4 +1,4 @@
-import { Effect, EffectOption } from "Quest";
+import { Effect, EffectOption } from "domain/Quest";
 
 export abstract class Item {
   public effect: Effect | null;

@@ -1,4 +1,4 @@
-import { Answer, Item } from "Quest";
+import { Answer, Item } from "domain/Quest";
 
 export abstract class Quest {
   private solution: Answer;

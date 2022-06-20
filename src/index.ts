@@ -1,4 +1,3 @@
-export * as account from "Account";
-export * as quest from "Quest";
-
-export type Identifier = string | number;
+export * as domain from "domain";
+export * as infrastructure from "infrastructure";
+export * as application from "application";
