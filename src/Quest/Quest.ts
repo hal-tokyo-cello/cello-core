@@ -17,3 +17,7 @@ export abstract class Quest {
     return answer.value === this.solution.value;
   }
 }
+
+export class MultipleChoiceQuestion extends Quest {}
+
+export class CombinationQuestion extends Quest {}
