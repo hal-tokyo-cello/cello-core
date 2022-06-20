@@ -1,4 +1,4 @@
-import { IAccountRepository } from "Account";
+import { Avatar, IAccountRepository } from "Account";
 
 export abstract class User {
   constructor(
@@ -26,4 +26,15 @@ export class LoginOptions {
   constructor(public email: string, public password: string) {}
 }
 
-export class Player extends User {}
+export class Player extends User {
+  constructor(
+    repo: IAccountRepository,
+    accountId: string,
+    email: string,
+    password: string,
+    public totalExp: number,
+    public avatar: Avatar
+  ) {
+    super(repo, accountId, email, password);
+  }
+}
