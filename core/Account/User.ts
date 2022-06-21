@@ -1,4 +1,4 @@
-import { Avatar } from "domain/Account";
+import { Avatar } from "core";
 import { IAccountRepository } from "infrastructure";
 
 export abstract class User {

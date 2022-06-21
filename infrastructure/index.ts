@@ -1,5 +1,4 @@
-import { Avatar, Player, User } from "domain/Account";
-import { Answer, Item, Quest } from "domain/Quest";
+import { Quest, Answer, Item, User, Player, Avatar } from "core";
 
 export type Identifier = string | number;
 
