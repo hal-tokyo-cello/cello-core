@@ -4,14 +4,15 @@ import { Avatar } from "domain/Account";
 import { IAccountRepository } from "infrastructure";
 
 export abstract class User {
-  constructor(
-    public repo: IAccountRepository,
-    public accountId: string,
-    public email: string,
-    public password: string
-  ) {}
+  public password?: string;
 
-  public login(options: LoginOptions): boolean {
+  constructor(public repo: IAccountRepository, public accountId: string, public email: string) {}
+
+  public async login(options: LoginOptions): Promise<boolean> {
+    if (this.password === undefined) {
+      this.password = await this.repo.getUserPassword(this.accountId);
+    }
+
     let result: boolean = this.password === User.hashPassword(options.password);
     let timestamp: number = Date.now();
 
@@ -36,7 +37,7 @@ export abstract class User {
   }
 
   public upgradeToPlayer(avatar: Avatar): Player {
-    return new Player(this.repo, this.accountId, this.email, this.password, 0, avatar);
+    return new Player(this.repo, this.accountId, this.email, 0, avatar);
   }
 }
 
@@ -56,10 +57,9 @@ export class Player extends User {
     repo: IAccountRepository,
     accountId: string,
     email: string,
-    password: string,
     public totalExp: number,
     public avatar: Avatar
   ) {
-    super(repo, accountId, email, password);
+    super(repo, accountId, email);
   }
 }

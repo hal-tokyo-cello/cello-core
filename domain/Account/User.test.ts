@@ -22,7 +22,7 @@ describe("Player's functionality", () => {
       { exp: 1250, lv: 5 },
       { exp: 5000, lv: 10 },
     ].forEach((c) => {
-      const p = new Player({} as IAccountRepository, "", "", "", c.exp, {} as Avatar);
+      const p = new Player({} as IAccountRepository, "", "", c.exp, {} as Avatar);
       expect(p.level).toBe(c.lv);
     });
   });

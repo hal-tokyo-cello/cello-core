@@ -11,6 +11,7 @@ export interface IQuestRepository {
 
 export interface IAccountRepository {
   getUser(id: Identifier): User;
+  getUserPassword(id: Identifier): Promise<string>;
   getPlayer(id: Identifier): Player;
   getAvatar(id: Identifier): Avatar;
 
