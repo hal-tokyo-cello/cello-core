@@ -45,6 +45,13 @@ export class LoginOptions {
 }
 
 export class Player extends User {
+  /**
+   * Level function is `50x ^ 2`.
+   */
+  public get level(): number {
+    return this.totalExp == 0 ? 0 : Math.sqrt(this.totalExp / 50);
+  }
+
   constructor(
     repo: IAccountRepository,
     accountId: string,

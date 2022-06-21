@@ -1,4 +1,6 @@
-import { User } from "./User";
+import { IAccountRepository } from "infrastructure";
+import { Avatar } from "./Avatar";
+import { Player, User } from "./User";
 
 describe("User's functionality", () => {
   test("password hashing", () => {
@@ -9,6 +11,19 @@ describe("User's functionality", () => {
 
     cases.forEach((c) => {
       expect(User.hashPassword(c.raw)).toBe(c.hash.toLowerCase());
+    });
+  });
+});
+
+describe("Player's functionality", () => {
+  test("player level", () => {
+    [
+      { exp: 0, lv: 0 },
+      { exp: 1250, lv: 5 },
+      { exp: 5000, lv: 10 },
+    ].forEach((c) => {
+      const p = new Player({} as IAccountRepository, "", "", "", c.exp, {} as Avatar);
+      expect(p.level).toBe(c.lv);
     });
   });
 });
