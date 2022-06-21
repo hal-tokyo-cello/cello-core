@@ -18,6 +18,12 @@ export interface IAccountRepository {
    * @param player プレイヤーのID
    */
   getAvatar(player: Identifier): Avatar;
+  /**
+   * ユーザーのパスワードを更新する。
+   * @param user ユーザーのID
+   * @param password 新しいパスワードのハッシュ
+   */
+  updateUserPassword(user: Identifier, password: string): Promise<void>;
 
   setLastLoginAttempt(timestamp: number): void;
   setLastLogin(timestamp: number): void;

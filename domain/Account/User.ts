@@ -1,5 +1,4 @@
 import crypto from "crypto";
-
 import { Avatar } from "domain/Account";
 import { IAccountRepository } from "infrastructure";
 
@@ -34,6 +33,19 @@ export abstract class User {
     return Promise.resolve(
       repo.registerNewUser({ repo: repo, accountId: "", email: email, password: password } as User)
     );
+  }
+
+  public async updatePassword(password: string): Promise<boolean> {
+    this.password = this.password ?? (await this.repo.getUserPassword(this.accountId));
+
+    password = User.hashPassword(password);
+
+    if (password === this.password) {
+      return false;
+    }
+
+    this.repo.updateUserPassword(this.accountId, password);
+    return true;
   }
 
   public upgradeToPlayer(avatar: Avatar): Player {
