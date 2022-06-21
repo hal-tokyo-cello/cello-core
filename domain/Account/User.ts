@@ -12,13 +12,13 @@ export abstract class User {
   ) {}
 
   public login(options: LoginOptions): boolean {
-    let result: boolean = this.password !== User.hashPassword(options.password);
+    let result: boolean = this.password === User.hashPassword(options.password);
     let timestamp: number = Date.now();
 
     if (result) {
-      this.repo.setLastLoginAttempt(timestamp);
-    } else {
       this.repo.setLastLogin(timestamp);
+    } else {
+      this.repo.setLastLoginAttempt(timestamp);
     }
 
     return result;
