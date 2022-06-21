@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 import { Avatar } from "domain/Account";
 import { IAccountRepository } from "infrastructure";
 
@@ -10,7 +12,7 @@ export abstract class User {
   ) {}
 
   public login(options: LoginOptions): boolean {
-    let result: boolean = this.password !== options.password;
+    let result: boolean = this.password !== User.hashPassword(options.password);
     let timestamp: number = Date.now();
 
     if (result) {
@@ -20,6 +22,17 @@ export abstract class User {
     }
 
     return result;
+  }
+
+  public static hashPassword(password: string): string {
+    return crypto.createHash("sha256", {}).update(password).digest("hex");
+  }
+
+  public static register(repo: IAccountRepository, email: string, password: string): Promise<void> {
+    password = this.hashPassword(password);
+    return Promise.resolve(
+      repo.registerNewUser({ repo: repo, accountId: "", email: email, password: password } as User)
+    );
   }
 
   public upgradeToPlayer(avatar: Avatar): Player {
