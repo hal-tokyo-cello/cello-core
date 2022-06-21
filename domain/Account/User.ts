@@ -37,7 +37,9 @@ export abstract class User {
   }
 
   public upgradeToPlayer(avatar: Avatar): Player {
-    return new Player(this.repo, this.accountId, this.email, 0, avatar);
+    const p = new Player(this.repo, this.accountId, this.email);
+    p.avatar = avatar;
+    return p;
   }
 }
 
@@ -46,20 +48,21 @@ export class LoginOptions {
 }
 
 export class Player extends User {
-  /**
-   * Level function is `50x ^ 2`.
-   */
-  public get level(): number {
-    return this.totalExp == 0 ? 0 : Math.sqrt(this.totalExp / 50);
+  private _avatar?: Avatar;
+
+  public get avatar(): Avatar {
+    return (this._avatar = this._avatar ?? this.repo.getAvatar(this.accountId));
   }
 
-  constructor(
-    repo: IAccountRepository,
-    accountId: string,
-    email: string,
-    public totalExp: number,
-    public avatar: Avatar
-  ) {
+  public set avatar(value: Avatar) {
+    this._avatar = value;
+  }
+
+  public get level(): number {
+    return this.avatar.level;
+  }
+
+  constructor(repo: IAccountRepository, accountId: string, email: string) {
     super(repo, accountId, email);
   }
 }

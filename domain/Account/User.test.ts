@@ -1,6 +1,5 @@
 import { IAccountRepository } from "infrastructure";
-import { Avatar } from "./Avatar";
-import { Player, User } from "./User";
+import { Avatar, Player, Race, User } from "../Account";
 
 describe("User's functionality", () => {
   test("password hashing", () => {
@@ -22,8 +21,11 @@ describe("Player's functionality", () => {
       { exp: 1250, lv: 5 },
       { exp: 5000, lv: 10 },
     ].forEach((c) => {
-      const p = new Player({} as IAccountRepository, "", "", c.exp, {} as Avatar);
-      expect(p.level).toBe(c.lv);
+      const repoMock = jest.fn<Avatar, []>(() => new Avatar(Race.Egg, c.exp));
+      const p = new Player({ getAvatar: repoMock } as unknown as IAccountRepository, "", "");
+      const lv = p.level;
+      expect(repoMock).toBeCalledTimes(1);
+      expect(lv).toBe(c.lv);
     });
   });
 });

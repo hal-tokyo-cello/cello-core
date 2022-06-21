@@ -13,7 +13,11 @@ export interface IAccountRepository {
   getUser(id: Identifier): User;
   getUserPassword(id: Identifier): Promise<string>;
   getPlayer(id: Identifier): Player;
-  getAvatar(id: Identifier): Avatar;
+  /**
+   * プレイヤーのIDからアバターを取得する。
+   * @param player プレイヤーのID
+   */
+  getAvatar(player: Identifier): Avatar;
 
   setLastLoginAttempt(timestamp: number): void;
   setLastLogin(timestamp: number): void;
