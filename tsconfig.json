@@ -4,13 +4,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "CommonJS",
-    "rootDir": "src",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "out",
+    "outDir": "dist",
     "removeComments": true,
     "newLine": "lf",
     "stripInternal": true,
@@ -25,5 +21,5 @@
     "allowUnreachableCode": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["application/**/*.ts", "domain/**/*.ts", "infrastructure/**/*.ts"]
 }
