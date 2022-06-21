@@ -21,6 +21,10 @@ export abstract class User {
 
     return result;
   }
+
+  public upgradeToPlayer(avatar: Avatar): Player {
+    return new Player(this.repo, this.accountId, this.email, this.password, 0, avatar);
+  }
 }
 
 export class LoginOptions {
