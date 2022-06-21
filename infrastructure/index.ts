@@ -3,17 +3,17 @@ import { Quest, Answer, Item, User, Player, Avatar } from "core";
 export type Identifier = string | number;
 
 export interface IQuestRepository {
-  getQuest: (id: Identifier) => Quest;
-  getAnswer: (id: Identifier) => Answer;
-  getItem: (id: Identifier) => Item;
+  getQuest: (id: Identifier) => Promise<Quest>;
+  getAnswer: (id: Identifier) => Promise<Answer>;
+  getItem: (id: Identifier) => Promise<Item>;
 }
 
 export interface IAccountRepository {
-  getUser(id: Identifier): User;
-  getPlayer(id: Identifier): Player;
-  getAvatar(id: Identifier): Avatar;
+  getUser(id: Identifier): Promise<User>;
+  getPlayer(id: Identifier): Promise<Player>;
+  getAvatar(id: Identifier): Promise<Avatar>;
 
-  setLastLoginAttempt(timestamp: number): void;
-  setLastLogin(timestamp: number): void;
-  registerNewUser(user: User): void;
+  setLastLoginAttempt(timestamp: number): Promise<void>;
+  setLastLogin(timestamp: number): Promise<void>;
+  registerNewUser(user: User): Promise<void>;
 }
