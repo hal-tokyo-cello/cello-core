@@ -60,21 +60,22 @@ export class LoginOptions {
 }
 
 export class Player extends User {
-  private _avatar?: Avatar;
-
-  public get avatar(): Avatar {
-    return (this._avatar = this._avatar ?? this.repo.getAvatar(this.accountId));
-  }
-
-  public set avatar(value: Avatar) {
-    this._avatar = value;
-  }
+  public avatar!: Avatar;
 
   public get level(): number {
     return this.avatar.level;
   }
 
+  /**
+   * プレイヤーをインスタンス化する場合は`New`を使ってください。
+   */
   constructor(repo: IAccountRepository, accountId: string, email: string) {
     super(repo, accountId, email);
+  }
+
+  public static async New(repo: IAccountRepository, accountId: string, email: string): Promise<Player> {
+    const p = new Player(repo, accountId, email);
+    p.avatar = await p.repo.getAvatar(p.accountId);
+    return p;
   }
 }
