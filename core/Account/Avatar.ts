@@ -1,4 +1,4 @@
-import { Item } from "domain/Quest";
+import { Item } from "core";
 
 export enum Race {
   Egg,

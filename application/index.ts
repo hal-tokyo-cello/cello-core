@@ -1,1 +1,1 @@
-export * as quest from "application/Quest";
+export * from "./Quest";

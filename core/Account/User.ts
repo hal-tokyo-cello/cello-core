@@ -1,5 +1,5 @@
+import { Avatar } from "core";
 import crypto from "crypto";
-import { Avatar } from "domain/Account";
 import { IAccountRepository } from "infrastructure";
 
 export abstract class User {

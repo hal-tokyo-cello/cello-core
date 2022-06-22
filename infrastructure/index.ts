@@ -1,23 +1,22 @@
-import { Avatar, Player, User } from "domain/Account";
-import { Answer, Item, Quest } from "domain/Quest";
+import { Answer, Avatar, Item, Player, Quest, User } from "core";
 
 export type Identifier = string | number;
 
 export interface IQuestRepository {
-  getQuest: (id: Identifier) => Quest;
-  getAnswer: (id: Identifier) => Answer;
-  getItem: (id: Identifier) => Item;
+  getQuest: (id: Identifier) => Promise<Quest>;
+  getAnswer: (id: Identifier) => Promise<Answer>;
+  getItem: (id: Identifier) => Promise<Item>;
 }
 
 export interface IAccountRepository {
-  getUser(id: Identifier): User;
+  getUser(id: Identifier): Promise<User>;
   getUserPassword(id: Identifier): Promise<string>;
-  getPlayer(id: Identifier): Player;
+  getPlayer(id: Identifier): Promise<Player>;
   /**
    * プレイヤーのIDからアバターを取得する。
    * @param player プレイヤーのID
    */
-  getAvatar(player: Identifier): Avatar;
+  getAvatar(player: Identifier): Promise<Avatar>;
   /**
    * ユーザーのパスワードを更新する。
    * @param user ユーザーのID
@@ -25,7 +24,7 @@ export interface IAccountRepository {
    */
   updateUserPassword(user: Identifier, password: string): Promise<void>;
 
-  setLastLoginAttempt(timestamp: number): void;
-  setLastLogin(timestamp: number): void;
-  registerNewUser(user: User): void;
+  setLastLoginAttempt(timestamp: number): Promise<void>;
+  setLastLogin(timestamp: number): Promise<void>;
+  registerNewUser(user: User): Promise<void>;
 }
