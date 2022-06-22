@@ -1,5 +1,4 @@
-import { Player } from "domain/Account";
-import { IAccountRepository } from "infrastructure";
+import { Item } from "domain/Quest";
 
 export enum Race {
   Egg,
@@ -7,5 +6,18 @@ export enum Race {
 }
 
 export class Avatar {
-  constructor(public repo: IAccountRepository, public player: Player, public race: Race) {}
+  /**
+   * Level function is `50x ^ 2`.
+   */
+  public get level(): number {
+    return this.totalExp == 0 ? 0 : Math.sqrt(this.totalExp / 50);
+  }
+
+  constructor(public race: Race, public totalExp: number) {}
+
+  public applyItem(...items: Item[]): void {
+    items.forEach((item) => {
+      item.takeEffect();
+    });
+  }
 }
