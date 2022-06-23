@@ -27,4 +27,7 @@ export interface IAccountRepository {
   setLastLoginAttempt(timestamp: number): Promise<void>;
   setLastLogin(timestamp: number): Promise<void>;
   registerNewUser(user: User): Promise<void>;
+  upgradeUserToPlayer(user: User, player: Player): Promise<void>;
+  unregisterUser(id: Identifier): Promise<void>;
+  unregisterPlayer(id: Identifier): Promise<void>;
 }
