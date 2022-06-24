@@ -41,4 +41,5 @@ export interface QuestListResponse {
    * クエストの要約。
    */
   quests: QuestSimple;
+
 }

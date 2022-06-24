@@ -1,4 +1,4 @@
-import { Avatar } from "core";
+import { Avatar, Race } from "core";
 import crypto from "crypto";
 import { IAccountRepository } from "infrastructure";
 
@@ -83,6 +83,7 @@ export abstract class User {
     return true;
   }
 
+
   /**
    * ユーザーをプレイヤーに昇進する。
    * @param avatar 選択されたアバター
@@ -90,8 +91,8 @@ export abstract class User {
    */
   public upgradeToPlayer(avatar: Avatar): Player {
     const p = new Player(this.repo, this.accountId, this.email);
-    p.avatar = avatar;
-    return p;
+    p.avatar = new Avatar(option.race, option.exp);
+    return this.repo.upgradeUserToPlayer(this, p);
   }
 }
 
