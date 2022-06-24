@@ -1,17 +1,15 @@
-export interface QuestRequest {}
+import { Quest } from "core";
 
-interface QuestSimple {
-  title: string;
-  exp: number;
-  genre: string;
+export interface QuestSummaryRequest {}
+
+type QuestSummary = Pick<Quest, "title" | "experience">;
+
+export interface QuestSummaryResponse {
+  quest: QuestSummary;
 }
 
-export interface QuestResponse {
-  quest: QuestSimple;
-}
+export interface QuestSummaryListRequest {}
 
-export interface QuestListRequest {}
-
-export interface QuestListResponse {
-  quests: QuestSimple;
+export interface QuestSummaryListResponse {
+  quests: QuestSummary;
 }
