@@ -58,7 +58,12 @@ export interface IAccountRepository {
    * @param player プレイヤーのID
    */
   getAvatar(player: Identifier): Promise<Avatar>;
-
+  /**
+   * ユーザーのパスワードを更新する。
+   * @param user ユーザーのID
+   * @param password 新しいパスワードのハッシュ
+   */
+  updateUserPassword(user: Identifier, password: string): Promise<void>;
   /**
    * 最後にログインを試みた時日を記録する。
    * @param timestamp Unixタイムスタンプ
@@ -69,4 +74,25 @@ export interface IAccountRepository {
    * @param timestamp Unixタイムスタンプ
    */
   setLastLogin(timestamp: number): Promise<void>;
+  /**
+   * 新規ユーザーを登録する。
+   * @param user 登録するユーザー
+   */
+  registerNewUser(user: User): Promise<void>;
+  /**
+   * ユーザーをプレイヤーに昇格する。
+   * @param user 昇格元となるユーザー
+   * @param player 昇格したプレイヤー
+   */
+  upgradeUserToPlayer(user: User, player: Player): Promise<void>;
+  /**
+   * ユーザーを退会する。
+   * @param id ユーザーID
+   */
+  unregisterUser(id: Identifier): Promise<void>;
+  /**
+   * プレイヤーを退会する。
+   * @param id プレイヤーID
+   */
+  unregisterPlayer(id: Identifier): Promise<void>;
 }

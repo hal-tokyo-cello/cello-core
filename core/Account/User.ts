@@ -1,4 +1,4 @@
-import { Avatar, Race } from "core";
+import { Avatar, Race } from "./Avatar";
 import crypto from "crypto";
 import { IAccountRepository } from "infrastructure";
 
@@ -83,13 +83,12 @@ export abstract class User {
     return true;
   }
 
-
   /**
    * ユーザーをプレイヤーに昇進する。
    * @param avatar 選択されたアバター
    * @returns 昇進するプレイヤー
    */
-  public upgradeToPlayer(avatar: Avatar): Player {
+  public upgradeToPlayer(option: PlayerUpgradeOption): Promise<void> {
     const p = new Player(this.repo, this.accountId, this.email);
     p.avatar = new Avatar(option.race, option.exp);
     return this.repo.upgradeUserToPlayer(this, p);
@@ -106,6 +105,18 @@ export class LoginOptions {
    * @param password ユーザーのパスワード
    */
   constructor(public email: string, public password: string) {}
+}
+
+/**
+ * プレイヤーを昇格するオプションを代表するクラス。
+ */
+export class PlayerUpgradeOption {
+  /**
+   * プレイヤー昇格オプションのコンストラクタ。
+   * @param race アバターの種族
+   * @param exp 初期の総計経験値
+   */
+  constructor(public race: Race, public exp: number = 0) {}
 }
 
 /**
