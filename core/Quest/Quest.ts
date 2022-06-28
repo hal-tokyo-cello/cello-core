@@ -123,7 +123,35 @@ export class CombinationQuestion extends Quest {
   }
 
   /**
-   * 配列要素を組み合わせる
+   * オーバーロード
+   * @param answer 
+   * @returns 
    */
+  public override answer(answer: Answer): boolean {
+    return answer.value === this.answer2string([]);
+  }
+
+  /**
+   * 配列組み合わせ関数
+   * @return string some
+   */
+   public answer2string(ans: Answer[]){
+  
+    let ret:number[] = []
+
+    for (const a of ans) {
+      let i = 0;
+      for (let j = 0; j < this.answers.length; j++) {
+        const src = this.answers[j]
+        if (src.value === a.value) {
+          i = j
+          break;
+        }
+      }
+      ret = [...ret, i]
+    }
+
+    return ret.join(",")
+  }
 
 }
