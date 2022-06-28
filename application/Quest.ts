@@ -1,17 +1,33 @@
-export interface QuestRequest {}
+import { Quest } from "core";
 
-interface QuestSimple {
-  title: string;
-  exp: number;
-  genre: string;
+/**
+ * クエストを取得するリクエストのbody部。
+ */
+export interface QuestSummaryRequest {}
+
+type QuestSummary = Pick<Quest, "title" | "experience">;
+
+/**
+ * クエストを取得したレスポンスのbody部。
+ */
+export interface QuestSummaryResponse {
+  /**
+   * クエストの要約
+   */
+  quest: QuestSummary;
 }
 
-export interface QuestResponse {
-  quest: QuestSimple;
-}
+/**
+ * クエストのリストを取得するリクエストのbody部。
+ */
+export interface QuestSummaryListRequest {}
 
-export interface QuestListRequest {}
-
-export interface QuestListResponse {
-  quests: QuestSimple;
+/**
+ * クエストのリストを取得したレスポンスのbody部。
+ */
+export interface QuestSummaryListResponse {
+  /**
+   * クエストの要約。
+   */
+  quests: QuestSummary[];
 }
