@@ -1,4 +1,4 @@
-import { Answer, Item } from "core";
+import { Answer, CombinationAnswer, Item } from "core";
 
 /**
  * クエストを代表する抽象クラス。
@@ -7,7 +7,11 @@ export abstract class Quest {
   /**
    * クエストの解答
    */
-  private solution: Answer;
+  protected solution: Answer;
+  /**
+   *問題文
+   */
+  public problem: string = "";
 
   /**
    * クエストのコンストラクタ。
@@ -15,7 +19,7 @@ export abstract class Quest {
    * @param title クエストのタイトル
    * @param drops クエストのドロップアイテム
    * @param experience クエストを突破して得られる経験値
-   * @param answers クエストの解答群
+   * @param option クエストの解答群
    * @param solution クエストの正解が解答群における添え字
    */
   constructor(
@@ -23,10 +27,11 @@ export abstract class Quest {
     public title: string,
     public drops: Item[],
     public experience: number,
-    public answers: Answer[],
-    solution: number
+    public option: Answer[],
+    solution: number,
+    problem: string
   ) {
-    this.solution = answers[solution];
+    this.solution = option[solution];
   }
 
   /**
@@ -39,18 +44,55 @@ export abstract class Quest {
   }
 }
 
- /**
-  * 4択問題を代表するクラス。
-  */
+/**
+ * 4択問題を代表するクラス。
+ */
 export class MultipleChoiceQuestion extends Quest {
-
-  /**
-   *問題文
-   */
-  public problem: string = "";
-
   /**
    * ４択問題クラスのコンストラクタ。
+   * @param id クエストId
+   * @param title クエストのタイトル
+   * @param drops クエストのドロップアイテム
+   * @param experience クエストを突破して得られる経験値
+   * @param option クエストの解答群
+   * @param solution クエストの正解が解答群における添え字
+   * @param problem 問題文、配列として持たせるなら書き換える
+   */
+  constructor(
+    id: number,
+    title: string,
+    drops: Item[],
+    experience: number,
+    option: Answer[],
+    solution: number,
+    problem: string
+  ) {
+    super(id, title, drops, experience, option, solution, problem);
+  }
+
+  /**
+   * ランダムに問題整列をさせる
+   */
+  public questionShuffle(): Answer[] {
+    for (let i = this.option.length - 1; 0 < i; i--) {
+      // 0〜(i+1)の範囲で値を取得
+      let r = Math.floor(Math.random() * (i + 1));
+
+      // 要素の並び替えを実行
+      let tmp = this.option[i];
+      this.option[i] = this.option[r];
+      this.option[r] = tmp;
+    }
+    return this.option;
+  }
+}
+
+/**
+ * 組み合わせ問題を代表するクラス。
+ */
+export class CombinationQuestion extends Quest {
+  /**
+   * 組み合わせ問題クラスのコンストラクタ。
    * @param id クエストId
    * @param title クエストのタイトル
    * @param drops クエストのドロップアイテム
@@ -64,94 +106,41 @@ export class MultipleChoiceQuestion extends Quest {
     title: string,
     drops: Item[],
     experience: number,
-    answers: Answer[],
+    option: Answer[],
     solution: number,
     problem: string
-  ){
-    super(id, title, drops, experience, answers, solution)
-  }
-
-  /**
-   * ランダムに問題整列をさせる
-   */
-  public questionShuffle() {
-
-    for(let i = (this.answers.length - 1); 0 < i; i--){
-      // 0〜(i+1)の範囲で値を取得
-      let r = Math.floor(Math.random() * (i + 1));
-  
-      // 要素の並び替えを実行
-      let tmp = this.answers[i];
-      this.answers[i] = this.answers[r];
-      this.answers[r] = tmp;
-    }
-    return this.answers;
-  }
-
-}
-
- /**
-  * 組み合わせ問題を代表するクラス。
-  */
-export class CombinationQuestion extends Quest {
-
-  /**
-   *問題文
-   */
-  public problem: string = "";
-
-  /**
-   * 組み合わせ問題クラスのコンストラクタ。
-   * @param id クエストId
-   * @param title クエストのタイトル
-   * @param drops クエストのドロップアイテム
-   * @param experience クエストを突破して得られる経験値
-   * @param answers クエストの解答群
-   * @param solution クエストの正解が解答群における添え字
-   * @param problem 問題文、配列として持たせるなら書き換える
-   */
-   constructor(
-    id: number,
-    title: string,
-    drops: Item[],
-    experience: number,
-    answers: Answer[],
-    solution: number,
-    problem: string
-  ){
-    super(id, title, drops, experience, answers, solution)
+  ) {
+    super(id, title, drops, experience, option, solution, problem);
   }
 
   /**
    * オーバーロード
-   * @param answer 
-   * @returns 
+   * @param answer
+   * @returns
    */
-  public override answer(answer: Answer): boolean {
-    return answer.value === this.answer2string([]);
+  public override answer(answer: CombinationAnswer): boolean {
+    return answer.value === this.solution.value; //this.answer2string([]);
   }
 
   /**
    * 配列組み合わせ関数
    * @return string some
    */
-   public answer2string(ans: Answer[]){
-  
-    let ret:number[] = []
+  public answer2string(ans: Answer[]): string {
+    let ret: number[] = [];
 
     for (const a of ans) {
       let i = 0;
-      for (let j = 0; j < this.answers.length; j++) {
-        const src = this.answers[j]
+      for (let j = 0; j < this.option.length; j++) {
+        const src = this.option[j];
         if (src.value === a.value) {
-          i = j
+          i = j;
           break;
         }
       }
-      ret = [...ret, i]
+      ret = [...ret, i];
     }
 
-    return ret.join(",")
+    return ret.join(",");
   }
-
 }
