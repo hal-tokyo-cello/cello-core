@@ -30,8 +30,8 @@ export abstract class Quest {
   }
 
   /**
-   * クエストを解答する。
-   * @param answer クエストへの解答
+   * クエストを回答する。
+   * @param answer クエストへの回答
    * @returns 正解かどうか
    */
   public answer(answer: Answer): boolean {
