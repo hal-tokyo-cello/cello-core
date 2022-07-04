@@ -5,7 +5,7 @@ import { Quest } from "core";
  */
 export interface QuestSummaryRequest {}
 
-type QuestSummary = Pick<Quest, "title" | "experience">;
+type QuestSummary = Pick<Quest, "title" | "experience"> & { genre: string };
 
 /**
  * クエストを取得したレスポンスのbody部。
