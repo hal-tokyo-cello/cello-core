@@ -1,4 +1,4 @@
-import { Answer, Avatar, Item, Player, Quest, User } from "core";
+import { Answer, Avatar, Item, Player, Quest, User } from "../core";
 
 export type Identifier = string | number;
 

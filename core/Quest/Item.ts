@@ -1,4 +1,4 @@
-import { Effect, EffectOption } from "core";
+import { Effect, EffectOption } from "../../core";
 
 /**
  * アイテムを代表する抽象クラス。
