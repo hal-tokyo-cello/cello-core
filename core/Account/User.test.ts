@@ -1,6 +1,5 @@
-import { IAccountRepository } from "infrastructure";
-import { Avatar, Race } from "./Avatar";
-import { Player, User } from "./User";
+import { Avatar, Player, Race, User } from "../../core";
+import { IAccountRepository } from "../../infrastructure";
 
 describe("User's functionality", () => {
   test("password hashing", () => {

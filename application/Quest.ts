@@ -1,4 +1,4 @@
-import { Quest } from "core";
+import { Quest } from "../core";
 
 /**
  * クエストを取得するリクエストのbody部。

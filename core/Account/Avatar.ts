@@ -1,4 +1,4 @@
-import { Item } from "core";
+import { Item } from "../../core";
 
 /**
  * アバターの種族。
