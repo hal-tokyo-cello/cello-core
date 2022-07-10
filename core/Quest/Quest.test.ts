@@ -90,4 +90,8 @@ describe("testing combination question class", () => {
       expect(quest.answer(solution)).toBeTruthy();
     });
   });
+
+  test("constructor should throw error when accepting illegal solution", () => {
+    expect(() => new CombinationQuestion("", "", [], 0, [], {} as CombinationSolution, "")).toThrowError();
+  });
 });
