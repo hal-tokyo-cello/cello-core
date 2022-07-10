@@ -1,6 +1,6 @@
-import { Avatar, Race } from "./Avatar";
+import { Avatar, Race } from "../../core";
 import crypto from "crypto";
-import { IAccountRepository } from "infrastructure";
+import { IAccountRepository } from "../../infrastructure";
 
 /**
  * ユーザーを代表する抽象クラス。

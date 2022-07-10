@@ -1,11 +1,11 @@
-import { Quest } from "core";
+import { Quest } from "../core";
 
 /**
  * クエストを取得するリクエストのbody部。
  */
 export interface QuestSummaryRequest {}
 
-type QuestSummary = Pick<Quest, "title" | "experience">;
+type QuestSummary = Pick<Quest, "title" | "experience"> & { genre: string };
 
 /**
  * クエストを取得したレスポンスのbody部。

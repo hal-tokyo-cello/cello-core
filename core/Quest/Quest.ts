@@ -1,4 +1,4 @@
-import { Answer, CombinationAnswer, Item } from "core";
+import { Answer, CombinationAnswer, Item } from "../../core";
 
 /**
  * クエストを代表する抽象クラス。
