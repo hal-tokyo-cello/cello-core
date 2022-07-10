@@ -1,35 +1,24 @@
-import { CombinationQuestion } from "./Quest";
+/**
+ * 答の値を代表する型。
+ */
+export type AnswerValue = string;
 
 /**
- * クエストの解答を代表する抽象クラス。
+ * クエストの答を代表するクラス。
  */
-export abstract class Answer {
+export class Answer {
   /**
    * 解答クラスのコンストラクタ。
-   * @param value 解答の値、比較に使う
-   * @param display 比較の表示文字列
+   * @param value 答の内部の値、比較に使う
+   * @param display 表示用文字列
    */
-  constructor(public value: string, public display: string) {}
-}
-
-/**
- * 組み合わせ問題の解答クラス
- */
-export class CombinationAnswer extends Answer {
-  /**
-   * 組み合わせ選択肢のコンストラクタ
-   * @param parts
-   * @param value
-   */
-  constructor(display: string, quest: CombinationQuestion, ...answers: Answer[]) {
-    super(quest.answer2string(answers), display);
-  }
+  constructor(public value: AnswerValue, public display: string) {}
 
   /**
-   * 配列組み合わせ関数
-   * @return string some
+   * 答を比較する
+   * @param answer 比較する答のオブジェクト
    */
-  public static answers2string(ans: Answer[]): string {
-    return "";
+  public compare(answer: Answer): boolean {
+    return this.value === answer.value;
   }
 }
