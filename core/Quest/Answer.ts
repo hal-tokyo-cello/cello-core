@@ -74,7 +74,7 @@ export class CombinationSolution extends Answer {
    * @param answers 答として整列した答の配列
    * @returns 答オブジェクト
    */
-  public static withOptionsNStrngs(options: Answer[], answers: string[]) {
+  public static withOptionsNStrings(options: Answer[], answers: string[]) {
     return CombinationSolution.withOptionsNAnswers(options, CombinationSolution.strings2Answers(answers));
   }
 

@@ -31,7 +31,7 @@ describe("testing combination solution class", () => {
 
   test("instantiate with options", () => {
     [{ options: ["=", "A1", "20", "C4", "+"].map(str2ans), answers: ["=", "A1", "+", "C4"] }].forEach((c) => {
-      CombinationSolution.withOptionsNStrngs(c.options, c.answers);
+      CombinationSolution.withOptionsNStrings(c.options, c.answers);
     });
   });
 });
