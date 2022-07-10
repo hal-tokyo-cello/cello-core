@@ -35,10 +35,10 @@ export abstract class Quest {
   }
 
   /**
-   * ランダムに解答群を整列する。
+   * 解答群をランダムに整列して返す。内部に保存されたデータは整列されない。
    */
   public shuffleOptions(): Answer[] {
-    return [...this.options].sort(() => Math.random());
+    return [...this.options].sort(() => Math.random() - 0.5);
   }
 }
 
