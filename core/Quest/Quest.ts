@@ -1,4 +1,4 @@
-import { Answer, Item } from "../../core";
+import { Answer, AnswerValue, CombinationSolution, Item } from "../../core";
 import { Identifier } from "../../infrastructure";
 
 /**
@@ -79,15 +79,23 @@ export class CombinationQuestion extends Quest {
     drops: Item[],
     experience: number,
     options: Answer[],
-    solution: Answer[],
+    solution: Answer[] | CombinationSolution,
     problem: string
   ) {
-    const solutionObj = new Answer(CombinationQuestion.flattenAnswerValues(options, solution), "solution");
+    let solutionObj = null;
+
+    if (solution instanceof CombinationSolution) {
+      solutionObj = solution;
+    } else if (Array.isArray(solution)) {
+      solutionObj = CombinationSolution.withOptionsNAnswers(options, solution);
+    } else {
+      throw new Error("only accept array or CombinationSolution as solution.");
+    }
 
     super(id, title, drops, experience, options, solutionObj, problem);
   }
 
-  public static flattenAnswerValues(options: Answer[], answers: Answer[]): string {
+  public static flattenAnswerValues(options: Answer[], answers: Answer[]): AnswerValue {
     return answers.map((a) => options.findIndex((o) => o.value === a.value)).join("|");
   }
 
@@ -95,7 +103,7 @@ export class CombinationQuestion extends Quest {
    * 配列組み合わせ関数
    * @return string some
    */
-  public answer2string(answers: Answer[]): string {
+  public answer2Value(answers: Answer[]): string {
     return CombinationQuestion.flattenAnswerValues(this.options, answers);
   }
 }
