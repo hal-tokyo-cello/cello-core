@@ -57,7 +57,7 @@ export class MultipleChoiceQuestion extends Quest {
    * @param problem 問題文
    */
   constructor(
-    id: number,
+    id: Identifier,
     title: string,
     drops: Item[],
     experience: number,
@@ -74,7 +74,7 @@ export class MultipleChoiceQuestion extends Quest {
  */
 export class CombinationQuestion extends Quest {
   constructor(
-    id: number,
+    id: Identifier,
     title: string,
     drops: Item[],
     experience: number,
