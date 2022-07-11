@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
     "outDir": ".",
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true
   },
   "extends": "./tsconfig",
-  "exclude": ["**/*.test.ts", "**/*.test.json"],
-  "include": ["./index.ts"]
+  "exclude": ["**/*.test.ts", "**/*.test.json"]
 }
