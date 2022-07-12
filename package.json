@@ -5,7 +5,8 @@
   "scripts": {
     "docs": "typedoc core/index.ts infrastructure/index.ts application/index.ts",
     "prepare": "tsc -p tsconfig.prod.json",
-    "test": "jest"
+    "test": "jest",
+    "docs": "typedoc core/index.ts infrastructure/index.ts application/index.ts"
   },
   "repository": {
     "type": "git",
