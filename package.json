@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.2.0",
   "scripts": {
+    "docs": "typedoc core/index.ts infrastructure/index.ts application/index.ts",
     "prepare": "tsc -p tsconfig.prod.json",
     "test": "jest",
     "docs": "typedoc core/index.ts infrastructure/index.ts application/index.ts"
