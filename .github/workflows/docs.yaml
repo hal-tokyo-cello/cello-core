@@ -2,11 +2,10 @@ name: Generate library docs
 
 on:
   push:
-    branches: ["main", "docs-ci"]
+    branches: ["dev"]
 
 env:
   NODE_VER: 16.x
-  BASE_BRANCH: "dev"
 
 jobs:
   docs:
@@ -35,4 +34,4 @@ jobs:
         with:
           add: "docs"
           default_author: github_actions
-          pull: origin ${{ env.BASE_BRANCH }} --no-ff --autostash -X theirs --allow-unrelated-histories
+          pull: origin ${{ github.ref }} --no-ff --autostash -X theirs --allow-unrelated-histories
