@@ -25,7 +25,7 @@ jobs:
 
       - name: Sync with base branch
         run: |
-          git pull origin ${{ env.BASE_BRANCH }} --no-ff --autostash -X theirs --allow-unrelated-histories -s ort
+          git pull origin ${{ env.BASE_BRANCH }} --no-ff --autostash -X theirs --allow-unrelated-histories
 
       - name: Prepare Node.js ${{ env.NODE_VER }}
         uses: actions/setup-node@v3
