@@ -1,5 +1,8 @@
 import { Answer, Avatar, Item, Player, Quest, User } from "../core";
 
+/**
+ * データベースで格納する際、オブジェクトを代表できる識別子。
+ */
 export type Identifier = string | number;
 
 /**
