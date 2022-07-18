@@ -3,9 +3,9 @@ import crypto from "crypto";
 import { IAccountRepository } from "../../infrastructure";
 
 /**
- * ユーザーを代表する抽象クラス。
+ * ユーザーを代表するクラス。
  */
-export abstract class User {
+export class User {
   /**
    * ユーザーのパスワード。デフォルトはnull、必要の場合はrepoから取得する。
    */
@@ -160,3 +160,13 @@ export class Player extends User {
     return p;
   }
 }
+
+/**
+ * 教育版で教師を代表するクラス。
+ */
+export class Teacher extends User {}
+
+/**
+ * 教育版で学生を代表するクラス。
+ */
+export class Student extends Player {}
