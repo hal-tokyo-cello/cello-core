@@ -164,9 +164,9 @@ export class Player extends User {
 /**
  * 教育版で教師を代表するクラス。
  */
-class Teacher extends User {}
+export class Teacher extends User {}
 
 /**
  * 教育版で学生を代表するクラス。
  */
-class Student extends Player {}
+export class Student extends Player {}
