@@ -31,7 +31,7 @@ export class Avatar {
    * @param race アバターの種族
    * @param totalExp アバターの総計経験値
    */
-  constructor(public race: Race, public totalExp: number) {}
+  constructor(public race: Race, public totalExp: number, public isEvolved: boolean = false) {}
 
   /**
    * アイテムをアバターに使用する。
