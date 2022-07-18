@@ -1,6 +1,6 @@
 import { Avatar, Race } from "../../core";
 import crypto from "crypto";
-import { IAccountRepository } from "../../infrastructure";
+import { IAccountRepository, Identifier } from "../../infrastructure";
 
 /**
  * ユーザーを代表するクラス。
@@ -17,7 +17,7 @@ export class User {
    * @param accountId アカウントを表すID
    * @param email アカウントのメールアドレス
    */
-  constructor(public repo: IAccountRepository, public accountId: string, public email: string) {}
+  constructor(public repo: IAccountRepository, public accountId: Identifier, public email: string) {}
 
   /**
    * ユーザーをログインする。
@@ -142,7 +142,7 @@ export class Player extends User {
    * @param accountId アカウントのID
    * @param email メールアドレス
    */
-  constructor(repo: IAccountRepository, accountId: string, email: string) {
+  constructor(repo: IAccountRepository, accountId: Identifier, email: string) {
     super(repo, accountId, email);
   }
 
@@ -154,7 +154,7 @@ export class Player extends User {
    * @param email メールアドレス
    * @returns インスタンス化したプレイヤー
    */
-  public static async New(repo: IAccountRepository, accountId: string, email: string): Promise<Player> {
+  public static async New(repo: IAccountRepository, accountId: Identifier, email: string): Promise<Player> {
     const p = new Player(repo, accountId, email);
     p.avatar = await p.repo.getAvatar(p.accountId);
     return p;
