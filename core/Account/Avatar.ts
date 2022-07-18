@@ -20,6 +20,13 @@ export class Avatar {
   }
 
   /**
+   * アバターは進化可能かどうか。
+   */
+  public get canEvolve(): boolean {
+    return this.level >= 10;
+  }
+
+  /**
    * アバタークラスのコンストラクタ。
    * @param race アバターの種族
    * @param totalExp アバターの総計経験値
