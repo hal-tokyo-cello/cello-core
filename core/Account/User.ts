@@ -1,6 +1,7 @@
-import { Avatar, Race } from "../../core";
 import crypto from "crypto";
-import { IAccountRepository, Identifier } from "../../infrastructure";
+
+import { Avatar, Race } from "../../core";
+import { IAccountRepository } from "../../infrastructure";
 
 /**
  * ユーザーを代表するクラス。
@@ -17,7 +18,7 @@ export class User {
    * @param accountId アカウントを表すID
    * @param email アカウントのメールアドレス
    */
-  constructor(public repo: IAccountRepository, public accountId: Identifier, public email: string) {}
+  constructor(public repo: IAccountRepository, public accountId: string, public email: string) {}
 
   /**
    * ユーザーをログインする。
@@ -46,9 +47,11 @@ export class User {
    * @param password 未処理のパスワード
    * @returns ハッシュ化したパスワード
    */
-  public static hashPassword(password: string): string {
-    return crypto.createHash("sha256", {}).update(password).digest("hex");
-  }
+  public static hashPassword = (password: string): string =>
+    crypto.createHash("sha256", {}).update(password).digest("hex");
+
+  public static generateUserId = (seed: string): string =>
+    crypto.createHash("sha256", {}).update(seed).digest("base64url");
 
   /**
    * 新規ユーザーを登録する。
@@ -57,10 +60,13 @@ export class User {
    * @param password 新規ユーザーのパスワード
    * @returns
    */
-  public static register(repo: IAccountRepository, email: string, password: string): Promise<void> {
-    password = this.hashPassword(password);
-    return Promise.resolve(
-      repo.registerNewUser({ repo: repo, accountId: "", email: email, password: password } as User)
+  public static register(repo: IAccountRepository, email: string, password: string): Promise<string> {
+    const user = new User(repo, this.generateUserId(email), email);
+    user.password = this.hashPassword(password);
+
+    return repo.registerNewUser(user).then(
+      () => Promise.resolve(user.accountId as string),
+      () => Promise.reject()
     );
   }
 
@@ -142,7 +148,7 @@ export class Player extends User {
    * @param accountId アカウントのID
    * @param email メールアドレス
    */
-  constructor(repo: IAccountRepository, accountId: Identifier, email: string) {
+  constructor(repo: IAccountRepository, accountId: string, email: string) {
     super(repo, accountId, email);
   }
 
@@ -154,7 +160,7 @@ export class Player extends User {
    * @param email メールアドレス
    * @returns インスタンス化したプレイヤー
    */
-  public static async New(repo: IAccountRepository, accountId: Identifier, email: string): Promise<Player> {
+  public static async New(repo: IAccountRepository, accountId: string, email: string): Promise<Player> {
     const p = new Player(repo, accountId, email);
     p.avatar = await p.repo.getAvatar(p.accountId);
     return p;

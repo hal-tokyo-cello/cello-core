@@ -12,6 +12,19 @@ describe("User's functionality", () => {
       expect(User.hashPassword(c.raw)).toBe(c.hash.toLowerCase());
     });
   });
+
+  test("user registration", () => {
+    [
+      { raw: "alice@example.com", id: "_42YGfwOEr8NJIkuRZh-JJoo3Og2qFytYOKOqqjG2XY" },
+      { raw: "bob@example.com", id: "X_hgvxGQWWxxiKuFHbaR8PMWnEU5Nunh66L5pH96ABg" },
+    ].forEach(async (c) => {
+      const repo = {
+        registerNewUser: (user) => Promise.resolve(),
+      } as IAccountRepository;
+
+      expect(await User.register(repo, c.raw, "password")).toBe(c.id);
+    });
+  });
 });
 
 describe("Player's functionality", () => {
