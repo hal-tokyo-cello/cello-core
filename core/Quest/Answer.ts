@@ -14,7 +14,7 @@ export class Answer {
    * @param value 答の内部の値、比較に使う
    * @param display 表示用文字列
    */
-  constructor(public value: AnswerValue, public display: string) {}
+  constructor(public value: AnswerValue, public display: string = value) {}
 
   /**
    * 答を比較する
@@ -79,13 +79,10 @@ export class CombinationSolution extends Answer {
   }
 
   public static withOptionsNIndex(options: Answer[], answers: number[]) {
-    return CombinationSolution.withOptionsNAnswers(
-      options,
-      answers.map((idx) => options[idx])
-    );
+    return new CombinationSolution(answers.join("|"), CombinationSolutionDisplay);
   }
 
   private static strings2Answers(str: string[]) {
-    return str.map((s) => new Answer(s, ""));
+    return str.map((s) => new Answer(s, s));
   }
 }

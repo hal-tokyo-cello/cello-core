@@ -17,6 +17,11 @@ describe("testing answer base class", () => {
   });
 });
 
+test("simple answer", () => {
+  const ans = new Answer("cgfvhbj");
+  expect(ans.value).toBe(ans.display);
+});
+
 describe("testing combination solution class", () => {
   const str2ans = (s: string) => new Answer(s, "");
 
@@ -33,5 +38,25 @@ describe("testing combination solution class", () => {
     [{ options: ["=", "A1", "20", "C4", "+"].map(str2ans), answers: ["=", "A1", "+", "C4"] }].forEach((c) => {
       CombinationSolution.withOptionsNStrings(c.options, c.answers);
     });
+  });
+
+  test("instantiate with indexes", () => {
+    const opt = [
+      new Answer("="),
+      new Answer("1"),
+      new Answer("96"),
+      new Answer("+"),
+      new Answer("-"),
+      new Answer("213"),
+    ];
+    const ans = [0, 1, 3, 2];
+
+    const experimental = CombinationSolution.withOptionsNIndex(opt, ans);
+    const control = CombinationSolution.withOptionsNAnswers(
+      opt,
+      ans.map((i) => opt[i])
+    );
+
+    expect(experimental).toEqual(control);
   });
 });
