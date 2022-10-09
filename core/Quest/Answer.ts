@@ -78,6 +78,13 @@ export class CombinationSolution extends Answer {
     return CombinationSolution.withOptionsNAnswers(options, CombinationSolution.strings2Answers(answers));
   }
 
+  public static withOptionsNIndex(options: Answer[], answers: number[]) {
+    return CombinationSolution.withOptionsNAnswers(
+      options,
+      answers.map((idx) => options[idx])
+    );
+  }
+
   private static strings2Answers(str: string[]) {
     return str.map((s) => new Answer(s, ""));
   }
