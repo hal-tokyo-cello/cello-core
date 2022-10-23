@@ -96,7 +96,7 @@ export class User {
    */
   public upgradeToPlayer(option: PlayerUpgradeOption): Promise<void> {
     const p = new Player(this.repo, this.accountId, this.email);
-    p.avatar = new Avatar(option.race, option.exp);
+    p.avatar = new Avatar(option.race, option.exp ?? 0);
     return this.repo.upgradeUserToPlayer(this, p);
   }
 }
@@ -116,13 +116,9 @@ export class LoginOptions {
 /**
  * プレイヤーを昇格するオプションを代表するクラス。
  */
-export class PlayerUpgradeOption {
-  /**
-   * プレイヤー昇格オプションのコンストラクタ。
-   * @param race アバターの種族
-   * @param exp 初期の総計経験値
-   */
-  constructor(public race: Race, public exp: number = 0) {}
+export interface PlayerUpgradeOption {
+  race: Race;
+  exp?: number;
 }
 
 /**
