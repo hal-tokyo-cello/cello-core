@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
-        with:
-          ref: "docs"
 
       - name: Prepare Node.js ${{ env.NODE_VER }}
         uses: actions/setup-node@v3
@@ -29,9 +27,14 @@ jobs:
       - name: Generate docs
         run: "npm run docs"
 
+      - name: Prepare git
+        run: |
+          git config user.name "KleinChiu CI" &&
+          git config user.email "65886108+KleinChiu@users.noreply.github.com"
+
       - name: Publish docs
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: "docs"
-          default_author: github_actions
-          pull: origin ${{ github.ref }} --no-ff --autostash -X theirs --allow-unrelated-histories
+        run: |
+          git add docs/ &&
+          git commit -m "docs: Generate library docs" &&
+          git push origin --delete gh-pages &&
+          git subtree push --prefix docs origin gh-pages

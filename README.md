@@ -2,6 +2,8 @@
 
 CELLOのバックエンドとフロントエンドのビジネスロジックをまとめたコアライブラリ
 
+詳しくは[GitHub Page](https://hal-tokyo-cello.github.io/cello-core)を参照してください。
+
 ## 機能
 
 - 型の提供
